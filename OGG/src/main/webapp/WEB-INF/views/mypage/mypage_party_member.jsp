@@ -40,10 +40,10 @@
                         <div class="item">결제 수단 / 계좌 관리</div>
                     </a>
                     <a href="${ path }/mypage/point">
-                        <div class="item">포인트 관리</div>
+                        <div class="item">포인트 내역 확인</div>
                     </a>
                     <a href="${ path }/mypage/payment_history">
-                        <div class="item">정산 내역 확인</div>
+                        <div class="item">결제 내역 확인</div>
                     </a>
                     
                 </div>
@@ -112,7 +112,7 @@
 
                     <div class="btnBox">
                         <button type="button" onclick="goBack()" class="btn">뒤로가기</button>
-                        <button type="button" onclick="unschedulePay()" class="btn redBtn">탈퇴하기</button>
+                        <button type="button" onclick="removeCheck()" class="btn redBtn">탈퇴하기</button>
                     </div>
 
                     
@@ -156,6 +156,13 @@
 			}
 		});
 		location.href="${path}/mypage/main"
+	};
+	function removeCheck() {
+		 if (confirm("파티를 정말 탈퇴 하시겠습니까?") == true){
+			 unschedulePay();
+		 }else{
+		     return false;
+		 }
 	};
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

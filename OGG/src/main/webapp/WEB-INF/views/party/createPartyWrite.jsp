@@ -47,7 +47,7 @@
                                 - ${ ott.plan_name }을 이용중인 이메일 아이디를 입력해 주세요.<br>
                                 - 파티원과 공유 가능한 안전한 비밀번호를 사용해 주세요.
                             </p>
-                            <a href="#" class="linkText">${ ott.plan_name } 바로가기</a>
+                            <a href="https://www.netflix.com/kr/" target="_blank" class="linkText">${ ott.plan_name } 바로가기</a>
                     </div>
 
                     <h3><span class="c_purple">진행 상태</span> 입력</h3>
@@ -87,8 +87,8 @@
                     <h3><span class="c_purple">파티 규칙</span> 확인</h3>
                     <div class="form-round-box">
                             <div class="ruleBox" style="margin-bottom: 20px;">
-                            <div style="display:none"><input type="checkbox" id="check1" class="checkBoxs"></div>
-                                <p class="titleText"><i id="checkimg1" class="bi bi-check-lg checkIcon" style="color: #7e69fe;"></i> ${ ott.plan_name }의 로그인 정보를 정확하게 입력/관리하겠습니다.</p>
+                            <div style="display:none"><input type="checkbox" id="checkbox1" class="checkBoxes"></div>
+                                <p class="titleText"><i id="ch_img1" class="bi bi-check-lg ch_imgs"></i> ${ ott.plan_name }의 로그인 정보를 정확하게 입력/관리하겠습니다.</p>
                                     <p id="id_output">- 아이디 : 
                                     <p id="pwd_output">- 비밀번호 : 
                                 <p class="ruleText">
@@ -98,8 +98,8 @@
                             </div>
 
                             <div class="ruleBox">
-                            <div style="display:none"><input type="checkbox" id="check2" class="checkBoxs"></div>
-                                <p class="titleText" id="date_text"><i id="checkimg2" class="bi bi-check-lg checkIcon" style="color: #7e69fe;"></i> 파티 기간은 0000-00-00 ~ 0000-00-00 약 0개월 입니다.</p>
+                            <div style="display:none"><input type="checkbox" id="checkbox2" class="checkBoxes"></div>
+                                <p class="titleText" id="date_text"><i id="ch_img2" class="bi bi-check-lg ch_imgs"></i> 파티 기간은 0000-00-00 ~ 0000-00-00 약 0개월 입니다.</p>
                                 <p class="ruleText">
                                     파티 기간은 파티 시작 이후 변경할 수 없습니다. <br>
                                     파티 기간에 따라 추가 적립금 및 위약금 금액이 달라집니다.
@@ -134,7 +134,7 @@
                     </div>
 
                     <div class="buttonBox">                    
-                        <button type="submit" class="button button-purple">파티 만들기</button>
+                        <button type="submit" class="button" id="submitBtn" disabled>파티 만들기</button>
                         <button type="button" class="button" onclick="location.href='javascript:history.back()'">취소</button>
                     </div>
 
@@ -164,13 +164,49 @@
 			
 			document.querySelector('#monthly').value = Math.floor((end_month - start_month) / cMonth) + " 개월";				
 			document.querySelector('#monthly_val').value = Math.floor((end_month - start_month) / cMonth);				
-			document.getElementById('date_text').innerHTML = "<i class='bi bi-check-lg' style='color: #7e69fe;'></i> 파티 기간은 "+ $('#start_date').val() + " ~ " + $('#end_date').val() + " 약 " + $('#monthly').val() + " 입니다.";
+			document.getElementById('date_text').innerHTML = "<i id='ch_img2' class='bi bi-check-lg ch_imgs'></i></i> 파티 기간은 "+ $('#start_date').val() + " ~ " + $('#end_date').val() + " 약 " + $('#monthly').val() + " 입니다.";
 		});
 		
 		$('#p_max_member').change(() => {
 			document.querySelector('#p_entry_price').value = Math.floor($('#plan_price').val() / $('#p_max_member').val());
 		})
 		
+		// 체크박스 기능		
+    	$("#ch_img1").click(function(){
+    	    if($("#checkbox1").prop("checked")){
+    	        $("#checkbox1").prop("checked",false);
+    	        $("#ch_img1").css("color", "");
+    	        allChecked();
+    	    }
+    	    else{
+    	        $("#checkbox1").prop("checked",true);  
+    	        $("#ch_img1").css("color", "#7E69FE");
+    	        allChecked();
+    	    }
+    	});
+    	
+		$(document).on("click","#ch_img2", function(){
+    	    if($("#checkbox2").prop("checked")){
+    	        $("#checkbox2").prop("checked",false);
+    	        $("#ch_img2").css("color", "");
+    	        allChecked();
+    	    }
+    	    else{
+    	        $("#checkbox2").prop("checked",true);  
+    	        $("#ch_img2").css("color", "#7E69FE");
+    	        allChecked();
+    	    }
+    	});
+    	
+    	function allChecked(){
+        	if($("#checkbox1").prop("checked") && $("#checkbox2").prop("checked")){
+        		document.getElementById('submitBtn').disabled = false;
+        		$("#submitBtn").attr("class", "button button-purple");
+        	} else{
+        		document.getElementById('submitBtn').disabled = true;
+        		$("#submitBtn").attr("class", "button");
+        	}
+        };
 
 	});
 </script>
