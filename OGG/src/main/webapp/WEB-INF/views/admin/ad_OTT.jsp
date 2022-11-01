@@ -13,6 +13,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+        <!-- favicon tags -->
+		<link rel="apple-touch-icon" sizes="180x180" href="${ path }/images/favicon_io/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="${ path }/images/favicon_io/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="${ path }/images/favicon_io/favicon-16x16.png">
+		<link rel="manifest" href="${ path }/images/favicon_io/site.webmanifest">
         <title>관리자페이지 OTT</title>
 		<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${path }/css/admin/admin.css" rel="stylesheet" />
@@ -92,7 +97,7 @@
                                     <tbody>
                                     <c:forEach var="ott" items="${list}">
                                         <tr>
-                                            <td>${ott.ott_no}</td>
+                                            <td>${ott.ott_rnum}</td>
                                             <td><a href="javascript:ottdel(${ott.ott_no})">${ott.ott_name }</a></td>
                                             <td>${ott.ott_class }</td>
                                             <td>${ott.ott_max_member }명</td>
