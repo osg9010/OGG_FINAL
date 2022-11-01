@@ -17,6 +17,8 @@ public interface ReviewLikesMapper {
 	int insertFilm(Film film);
 
 	int insertStar(ReviewLikes reviewLikes);
+	
+	int updateStar(ReviewLikes reviewLikes);
 
 	ReviewLikes selectStar(ReviewLikes reviewLikes);
 
@@ -37,4 +39,7 @@ public interface ReviewLikesMapper {
 	ReviewLikes selectFilmLikes(ReviewLikes reviewLikes);
 
 	List<ReviewLikes> selectStarbyFilm(int fcode);
+
+	ReviewLikes selectStarByReview(Review review);
+
 }

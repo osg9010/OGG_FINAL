@@ -11,10 +11,20 @@
     #card_film{
         width: 13rem; 
         border-radius: 15px;
+        height: 24rem;
+        border: none;
     } 
     #card_film3{
         width: 13rem; 
         border-radius: 15px;
+        /* height: 24rem; */
+        border: none;
+        margin-bottom: 15px;
+    } 
+    #card_film4{
+        width: 13rem; 
+        border-radius: 15px;
+        border: none;
         margin-bottom: 15px;
     } 
 
@@ -41,8 +51,10 @@
     #div_review, #div_comment, #div_film, #filmDetail2{
         border-radius: 15px;
         border: 1px solid lightgray;
+        /* border: 5px solid gold; */
         height: 100%; 
         padding: 20px;
+        background-color: white;
     }
     
     #div_review2{
@@ -51,6 +63,30 @@
         height: 100%; 
         padding: 20px;
         margin-bottom: 30px;
+        background-color: white;
+    }
+
+    #div_review0, #div_review3, #div_review4, #div_review5 {
+        border-radius: 15px;
+        height: 100%; 
+        padding: 20px;
+    }
+
+    #div_review0{
+        /* border: 1px solid lightgray; */
+        background-color: #7e69fe;
+    }
+
+    #div_review3{
+        background-color: gold;
+    }
+
+    #div_review4{
+        background-color: #f05e44;
+    }
+
+    #div_review5{
+        background-color: #44abf0;
     }
 
     /******************/
@@ -96,11 +132,6 @@
         margin-top: 3px;
         font-size: 0.9em;
     }
-    #more-text1{
-        margin-left: 10px;
-        font-weight: 400;
-        font-size: 1em;
-    }
 
     /***************************/
     /****** film_from_dir ******/   
@@ -112,6 +143,11 @@
     #card-text2{
         margin-top: 3px;
         font-size: 0.8em;
+        text-overflow: clip;
+    }
+    #card-text2-1{
+        margin-top: 3px;
+        font-size: 0.7em;
     }
     #card-text3{
         margin-top: 10px;
@@ -128,6 +164,7 @@
         margin: auto;
     }
     #card_review2{
+        /* border: 5px solid gold; */
         border-radius: 15px;
         width: 16em;
         height: 16em;
@@ -169,19 +206,24 @@
         font-size: 1em;
     }
     #board-text4{
-        width: 13%;
+        width: 15%;
         margin-left: 10px;
-        font-size: 1em;
-        vertical-align: middle;
-    }
-    #board-text4-1{
-        padding-left: 4%;
-        width: 12%;
         font-size: 0.9em;
         vertical-align: middle;
     }
-    #board-text5, #board-text5-1{
-        font-size: 1em;
+    #board-text4-1{
+        padding-left: 2%;
+        width: 14%;
+        font-size: 0.9em;
+        vertical-align: middle;
+    }
+    #board-text5{
+        font-size: 0.9em;
+        vertical-align: middle;
+    }
+    #board-text5-1{
+        /* padding-left: 1%; */
+        font-size: 0.9em;
         vertical-align: middle;
     }
     #board-text6{
@@ -191,6 +233,15 @@
     #board-text7, #board-text7-1{
         width: 11%;
         font-size: 0.9em;
+    }
+    #board-text8{
+        font-size: 0.6em;
+        color: grey;
+    }
+    #board-text9{
+        margin-left: 25px;
+        font-size: 0.6em;
+        color: grey;
     }
 
     /****** comment ******/
@@ -223,7 +274,7 @@
     /********************/
     /****** button ******/
     /******* ver.1 ******/
-    .btn-primary{
+    .btn-primary {
         display: flex;
         align-items:center;
         justify-content: center;
@@ -234,17 +285,18 @@
         height: 30px; 
     }
     
-    .btn:hover, .btn:checked, .btn:focus{
+    .btn:hover, .btn:checked, .btn:focus, .btn:active {
         font-size: 1em;
         border: 1px solid #7e69fe;
         background-color: white; 
         color: #7e69fe; 
         height: 30px; 
-        /* text-align: center; */
+        text-align: center;
+        box-shadow: 0px 0px 1px 1px #7e69fe;
     }
 
     /****** ver.2 ******/
-    .btn-primary2{
+    .btn-primary2 {
         display: flex;
         align-items:center;
         justify-content: center;
@@ -255,13 +307,14 @@
         height: 30px; 
     }
     
-    .btn-primary2:hover, .btn-primary2:checked, .btn-primary2:focus {
+    .btn-primary2:hover, .btn-primary2:checked, .btn-primary2:focus, .btn-primary2:active {
         font-size: 1em;
         border: 1px solid #7e69fe;
         background-color: #7e69fe; 
         color: white;
         height: 30px; 
         text-align: center;
+        box-shadow: 0px 0px 1px 1px #7e69fe;
     }
 
     /****** star_rating ******/
@@ -300,14 +353,13 @@
     /****** carousel ******/
     /**********************/
     .carousel-control-prev {
-        margin-left: -40px;
-        margin-top: 120px;
-        
+        margin-left: -25px;
+        margin-top: 150px;
     }
     
     .carousel-control-next {
-        margin-right: -40px;
-        margin-top: 120px;
+        margin-right: -25px;
+        margin-top: 145px;
     }
 
     .carousel-control-prev,
@@ -316,6 +368,7 @@
         width: 50px;
         background-size: 100%, 100%;
         border-radius: 50%;
+        color: white;
     }
 
     .carousel-control-next,
@@ -350,8 +403,8 @@
     /****** film_detail_bg ******/
     /****************************/
     #baback {
-        padding-left: 30%;
-        position:absolute;
+        /* padding-left: 30%; */
+        position: absolute;
         height: 350px; 
         width: 90%;
         background-position: left center;
@@ -359,7 +412,7 @@
     }
 
     #aback {
-        height: 230px; 
+        height: 230px;
     }
 
     #back {
@@ -368,6 +421,54 @@
     }
 
     #fafa {
-        padding: 10px 10px 0px 15px;
+        /* padding: 10px 10px 0px 15px; */
+        padding: 20px 10px 0px 15px;
         margin-bottom: 100px;
+    }
+
+    #cmtlist:hover{
+        /* background-color: #ded9fc; */
+        /* background-color: #fff9da; */
+        background-color: #fcdc3b;
+    }
+    
+    /* #review_star, #review_starDate, #review_info, #review_count{
+        display: inline-block;
+        padding-right: 40px;
+        font-size: 0.8em;
+        font-weight: 200;
+    }
+     */
+    
+    #review_star, #review_starDate {
+        display: inline-block;
+        padding-right: 30px;
+        font-size: 0.8em;
+        font-weight: 200;
+    }
+    
+    #review_info, #review_count{
+        display: inline-block;
+        float: right;
+        /* text-align: right; */
+        padding-right: 30px;
+        font-size: 0.8em;
+        font-weight: 200;
+    }
+    
+    #review_star_in {
+        /* color: #7e69fe; */
+        color: gold;
+    }
+
+    #searchInput {
+        display: inline-block; 
+        margin-left: 35%; 
+        margin-top:5px; 
+        width:140px; 
+        border: 1px solid lightgray;
+    }
+
+    #searchInput:focus, #rvCmt:focus{
+        box-shadow: 0px 0px 2px 2px #7e69fe;
     }

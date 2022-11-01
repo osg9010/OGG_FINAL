@@ -26,14 +26,22 @@
     <!-- 2nd row -->
     <div id="fafa">
     <hr>
-    <div class="col-3 col-sm-12" id="div_review">
+    <div class="col-3 col-sm-12" id="div_review0">
         <!-- start review_content -->
         <div id="div_review">
-            <p id="board-text1">${ review.rvNickname }</p>
+            <p id="board-text1">${ review.rvNickname } &nbsp;님의 한마디</p>
             <input id="rvNo" type="hidden" value="${ review.rvNo }">
+            <input id="rvWriterNo" type="hidden" value="${ review.rvWriterNo }">
             <hr>
+            <div id="review_star" style="padding-left:10px;">이 리뷰어가 준 별점 :  </div>
+            <div id="review_starDate">별점을 준 날 :  </div>
+            <c:if test="${ review.rvUpStatus eq 'Y' }">
+                <div id="review_info">수정됨 : <fmt:formatDate type="date" dateStyle="long" value="${ review.rvUpdate }"/></div>
+            </c:if>
+            <div id="review_info">작성일 : <fmt:formatDate type="date" dateStyle="long" value="${ review.rvDate }"/></div>
+            <div id="review_count">조회 :  ${ review.rvReadCount }</div>
             <p id="board-text3">
-                <br>${ review.rvContent }<br><br>
+                <br><br>${ review.rvContent }<br><br><br>
             </p>
             <hr>
             <div class="row" id="detail-text">
@@ -61,7 +69,7 @@
             
         <!-- comment_table -->
         <div id="div_comment">
-        <table class="table table-hover" id="tata">
+        <table class="table" id="tata">
             <tbody id="cmtbody" >
                 <c:forEach var="reviewCmt" items="${ reviewCmt }">
                 <c:if test="${ reviewCmt.cmtDepth eq 0 }">
@@ -70,7 +78,7 @@
                         <input id="cmtNo" type="hidden" value="${ reviewCmt.cmtNo }">
                         <input id="cmtWriterNo" type="hidden" value="${reviewCmt.cmtWriterNo }" >
                         <input id="cmtNickname" type="hidden" value="${reviewCmt.cmtNickname }" >
-                        <td id="board-text4">${ reviewCmt.cmtNickname }</td>
+                        <td id="board-text4">${ reviewCmt.cmtNickname } <br><span id="board-text8"><fmt:formatDate type="both" pattern="yyyy.MM.dd" value="${ reviewCmt.cmtUpDate }"/></span></td>
                         <td id="board-text5" onclick="showCmt_Re(event)">${ reviewCmt.cmtContent }</td>
                         <td id="board-text7">
                             <c:if test="${ loginMember.m_no == reviewCmt.cmtWriterNo }">
@@ -79,10 +87,17 @@
                                     <button class="btn btn-primary2" type="button" onclick="deleteCmt(event)">삭제</button>
                                 </div>    
                             </c:if>
+                            <%-- <c:if test="${ loginMember.m_no != reviewCmt.cmtWriterNo }">
+                                <div style="padding-top: 5%; padding-left: 25%;"> 
+                                    <img src="${ path }/images/review/heart2.png" id="cmtLikes" style="height:30px;" onclick="CmtLikes(event)">
+                                    <img src="${ path }/images/review/heart3.png" id="cmtDisLikes" style="display: none; height:30px;" onclick="CmtDislikes(event)">
+                                    <span id="rvLikes" style="vertical-align: middle;">${ reviewCmt.cmtLikes }</span>
+                                </div>
+                            </c:if> --%>
                         </td>
                     </tr>
                     <tr id="cmtlist_up" style="display: none;">
-                        <td id="board-text4">${ reviewCmt.cmtNickname }</td>
+                        <td id="board-text4">${ reviewCmt.cmtNickname }💎</td>
                         <td id="board-text5-1">
                             <textarea id="message-cmt-2" style="border: 1px solid lightgrey; resize: none; width: 100%;"
                             <%-- >${ reviewCmt.cmtContent }</textarea> --%>
@@ -98,7 +113,7 @@
                     <!-- comment_re -->
                     <tr id="cmtlist_re" style="display: none;">
                         <input id="cmtWriterNo" type="hidden" value="${ loginMember.m_no }" >
-                        <td id="board-text4-1">↳ &nbsp; ${ loginMember.m_nickname }</td>
+                        <td id="board-text4-1">↳ &nbsp; ${ loginMember.m_nickname }💎</td>
                         <td id="board-text5-1">
                             <textarea id="message-cmt-1" style="border: 1px solid lightgrey; resize: none; width: 100%;"></textarea>
                         </td>
@@ -112,11 +127,11 @@
                     <tr id="cmtlist_re_orig">
                         <input id="cmtNo" type="hidden" value="${ reviewCmt.cmtNo }">
                         <input id="cmtWriterNo" type="hidden" value="${ reviewCmt.cmtWriterNo }" >
-                        <td id="board-text4-1">↳ &nbsp; ${ reviewCmt.cmtNickname }</td>
+                        <td id="board-text4-1">↳ &nbsp; ${ reviewCmt.cmtNickname }<br> <span id="board-text9"><fmt:formatDate type="date" pattern="yyyy.MM.dd" value="${ reviewCmt.cmtUpDate }"/></span></td>
                         <td id="board-text5-1">${ reviewCmt.cmtContent }</td>
                         <td id="board-text7">
                             <c:if test="${ loginMember.m_no == reviewCmt.cmtWriterNo }">
-                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="padding-top:7px;">
                                     <button class="btn btn-primary2" type="button" onclick="showUpdateCmt_Re(event)">수정</button>
                                     <button class="btn btn-primary2" type="button" onclick="deleteCmt_Re(event)">삭제</button>
                                 </div>    
@@ -124,10 +139,9 @@
                         </td>
                     </tr>
                     <tr id="cmtlist_up" style="display: none;">
-                        <td id="board-text4-1">↳ &nbsp; ${ reviewCmt.cmtNickname }</td>
+                        <td id="board-text4-1">↳ &nbsp; ${ reviewCmt.cmtNickname }💎</td>
                         <td id="board-text5-1">
-                            <textarea id="message-cmt-2" style="border: 1px solid lightgrey; resize: none; width: 100%;"
-                            >${ reviewCmt.cmtContent }</textarea>
+                            <textarea id="message-cmt-2" style="border: 1px solid lightgrey; resize: none; width: 100%;">${ reviewCmt.cmtContent }</textarea>
                         </td>
                         <td id="board-text7-1">
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -142,12 +156,13 @@
         </table>
         <!-- review_write -->
         <div class="mb-3">
-            <div class="form-control" style="height: 85px;">
-                <textarea id="rvCmt" style="border: none; resize: none; width: 100%;"></textarea>
+            <div class="form-control" style="height: 90px; padding-top: 20px;">
+                <textarea id="rvCmt" style="border: none; resize: none; width: 100%; vertical-align: middle;"></textarea>
             </div>
             <div style="margin-top:10px;">
-                <button class="btn btn-primary" type="button" id="writeCmt" style="display: inline-block; margin-left:45%; height: 35px;">등록</button>
-                <button class="btn btn-primary" type="button" id="tolist" style=" display: inline-block; margin-left:44%; height: 35px;">목록</button>
+                <button class="btn btn-primary2" type="button" id="tolist" style="display: inline-block; margin-left: 1%; height: 35px;">목록</button>
+                <button class="btn btn-primary" type="button" id="writeCmt" style="display: inline-block; margin-left:41%; height: 35px;">등록</button>
+                <span id="textLengthCheck3" style="margin-left:41%; color: grey;"> (0 / 200)</span>
             </div>
         </div>
     </div>
@@ -201,6 +216,14 @@
         $("span#rvCnt").text(cnt);
     }
 
+    function chDate(d){
+        let year = new Date(d).getFullYear();
+        let month = new Date(d).getMonth()+1;
+        let day = new Date(d).getDate();
+        let date = [year , month , day] ;
+        return date.join('.') ;
+    }
+
     //////////////////
     ////comment_re////
     //////////////////
@@ -225,13 +248,14 @@
             },
             success : (data) => {
 
+            let Date = chDate(data[0].cmtDate);
             let html  = "<tr id='cmtlist_re_orig'>";
                 html += "<input id='cmtNo' type='hidden' value='" + data[0].cmtNo + "'>";
                 html += "<input id='cmtWriterNo' type='hidden' value='"+ data[0].cmtWriterNo +"'>";
-                html += "<td id='board-text4-1'>↳ &nbsp; " + data[0].cmtNickname + "</td>";
+                html += "<td id='board-text4-1'>↳ &nbsp; " + data[0].cmtNickname + "<br><span id='board-text9'>" + Date + "</span></td>";
                 html += "<td id='board-text5-1'>" + data[0].cmtContent + "</td>";
                 html += "<td id='board-text7'>";
-                html += "<div class='btn-group' role='group' aria-label='Basic mixed styles example'>";
+                html += "<div class='btn-group' role='group' aria-label='Basic mixed styles example' style='padding-top:7px;'>";
                 html += "<button class='btn btn-primary2' type='button' onclick='showUpdateCmt_Re(event)'>수정</button>";
                 html += "<button class='btn btn-primary2' type='button' onclick='deleteCmt_Re(event)'>삭제</button>";
                 html += "</div></td></tr>";
@@ -317,8 +341,6 @@
     function deleteCmt_Re(event) {
         let cmtNo = $(event.target).parents('#cmtlist_re_orig').find('#cmtNo').val();
 
-        console.log(cmtNo);
-
         if(confirm('대댓글을 삭제하시겠습니까?')){
             $.ajax({
                 async: true,
@@ -343,7 +365,7 @@
             });
         };
     }
-
+    today = new Date();  
     ////////////////
     /////comment////
     ////////////////
@@ -365,10 +387,13 @@
                     'ftype' : ftype
                 },
                 success : (data) => {
+                    let Date = chDate(today);
+
+                    console.log(Date);
                     let html = "<tr id='cmtlist'>";
                         html += "<input id='cmtNo' type='hidden' value='"+ data.cmt.cmtNo +"'>";
                         html += "<input id='cmtWriterNo' type='hidden' value='"+ data.cmt.cmtWriterNo +"'>";
-                        html += "<td id='board-text4'>" + data.cmt.cmtNickname + "</td>";
+                        html += "<td id='board-text4'>" + data.cmt.cmtNickname + "<br><span id='board-text8'>" + Date + "</span></td>";
                         html += "<td id='board-text5' onclick='showCmt_Re(event)'>" + data.cmt.cmtContent + "</td>";
                         html += "<td id='board-text7'>";
                         html += "<div class='btn-group' role='group' aria-label='Basic mixed styles example'>";
@@ -382,7 +407,7 @@
                         html += "</td><td id='board-text7-1'>";
                         html += "<div class='btn-group' role='group' aria-label='Basic mixed styles example'>";
                         html += "<button class='btn btn-primary2' type='button' onclick='updateCmt(event)'>수정</button>";
-                        html += "<button class='btn btn-primary2' type='button' onclick='updateCommentsCancel(event)'>취소</button>";
+                        html += "<button class='btn btn-primary2' type='button' onclick='updateCmtCancel(event)'>취소</button>";
                         html += "</div></td></tr>";
                         html += "<tr id='cmtlist_re' style='display: none;'>";
                         html += "<input id='cmtWriterNo' type='hidden' value='${ loginMember.m_no }'>";
@@ -463,7 +488,7 @@
     /////////////
     ////likes////
     /////////////
-    $(document).ready(function() {
+$(document).ready(function() {
 
     $.ajax({
         async: true,
@@ -488,6 +513,91 @@
             console.log('좋아요 통신 오류');
         }
     });
+
+    // let cmtNo = document.querySelectorAll('#cmtNo');
+    // let arr = [];
+    // let no;
+
+    // for (let i = 0; i < cmtNo.length; i++) {
+    //     arr[i] = cmtNo[i].value;
+    // }
+
+    // for(let i = 0; i < arr.length; i++){
+    //     $.ajax({
+    //         async: true,
+    //         type : 'POST',
+    //         url : contextpath + '/review/get_likes',
+    //         data : {
+    //             'rvNo' : rvNo1,
+    //             'cmtNo' : arr[i],
+    //             'lType' : 'CMT',
+    //             'fCode' : fcode,
+    //             'ftype' : ftype
+    //         },
+    //         success : (data) => {
+                
+    //             if(data.likes == null){
+    //                 console.log('안함');
+    //             }else{
+    //                 if(data.likes.cmtNo){
+    //                     $('#cmtLikes').eq(i).hide();
+    //                     $('#cmtDisLikes').eq(i-1).show();
+    //                 }
+    //             }
+    //         },
+    //         error: function (error) {
+    //             console.log('좋아요 통신 오류');
+    //         }
+    //     });
+    // }
+
+    let rvWriterNo = document.getElementById('rvWriterNo').value;
+
+    $.ajax({
+        async: true,
+        type : 'POST',
+        url : contextpath + '/review/get_reviewstar',
+        data : {
+            'rvNo' : rvNo1,
+            'rvWriterNo' : rvWriterNo,
+            'fCode' : fcode,
+            'ftype' : ftype
+        },
+        success : (data) => {
+            let ss = '';
+            let result = data.rvstar.ldate;
+            let date = '';
+            
+            let year = new Date(result).getFullYear();
+            let month = new Date(result).getMonth()+1;
+            let day = new Date(result).getDate();
+            // 1666808819000
+            // Thu Oct 27 2022 03:26:59 GMT+0900 (한국 표준시) 
+
+                if(data.rvstar.fstar){
+                    ss = '★&nbsp;'.repeat(data.rvstar.fstar);
+                    date = year + "년 " + month + "월 " + day + "일";
+                }else{
+                    $("#review_star").hide();
+                    $("#review_starDate").hide();
+                }
+
+            let html = "<span id='review_star_in'>";
+                html += ss;
+                html += "</span>";
+
+            let html2 = date;
+
+            $("#review_star").append(html);
+            $("#review_starDate").append(html2);
+        },
+        error: function (error) {
+            console.log('좋아요 통신 오류');
+        }
+    });
+
+});
+            
 
     function ReviewLikes(event) {
         $.ajax({
@@ -541,7 +651,68 @@
         });
     }
 
-    });
+    function CmtLikes(event) {
+        let cmtNo = $(event.target).parents('#cmtlist').find('#cmtNo').val();
+
+        console.log('시작');
+        console.log(rvNo1);
+        console.log(cmtNo);
+        console.log('끝');
+
+        $.ajax({
+            async: true,
+            type : 'POST',
+            url : contextpath + '/review/insert_likes',
+            data : {
+                'rvNo' : rvNo1,
+                'cmtNo' : cmtNo,
+                'lType' : 'CMT',
+                'fCode' : fcode,
+                'ftype' : ftype
+            },
+            success : (data) => {
+                let no = $(event.target).next().next().html();
+                no = Number(no) + 1;
+
+                $(event.target).hide();
+                $(event.target).next().show();
+                $(event.target).next().next().html(no);
+
+            },
+            error : (error) => {
+                alert('로그인 후 가능합니다');
+            }
+        });
+    };  
+    
+    function CmtDislikes(event) {
+        let cmtNo = $(event.target).parents('#cmtlist').find('#cmtNo').val();
+
+        $.ajax({
+            async: true,
+            type : 'POST',
+            url : contextpath + '/review/delete_likes',
+            data : {
+                'rvNo' : rvNo1,
+                'cmtNo' : cmtNo,
+                'lType' : 'CMT',
+                'fCode' : fcode,
+                'ftype' : ftype
+            },
+            success : (data) => {
+                let no = $(event.target).next().html();
+                no = Number(no) - 1;
+                
+                $(event.target).hide();
+                $(event.target).prev().show();
+                $(event.target).next().html(no);
+
+            },
+            error : (error) => {
+                alert('로그인 후 가능합니다');
+            }
+        });
+    }
 </script>  
 
 <!-- footer -->

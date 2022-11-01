@@ -39,6 +39,17 @@
             <br>
         </c:if>
         <c:if test="${ review != null }">
+            <div class="col-3 col-sm-12" id="div_review" style="padding-bottom: 0;">
+                <p id="detail-text1" style="display: inline-block;"> 나의 한마디 🎬 </p>
+                <p id="detail-text6" style="display: inline-block; padding-left: 2%;">
+                    <a href="${ path }/review/review_detail?no=${ review.rvNo }&fcode=${ fcode }&ftype=${ ftype }">
+                        ${ review.rvContent }
+                    <a>
+                </p></p>
+            </div>
+            <br>
+        </c:if>
+        <%-- <c:if test="${ review != null }">
             <div class="col-3 col-sm-12" id="div_review">
                 <p id="detail-text1">나의 리뷰</p>
                 <hr> 
@@ -49,7 +60,7 @@
                 </p></p>
             </div>
             <br>
-        </c:if>
+        </c:if> --%>
     </c:if>
     <c:if test="${ loginMember == null }">
         <div class="col-3 col-sm-12" id="div_review">
@@ -73,21 +84,19 @@
 
     <!-- 5th row -->
     <div class="col-3 col-sm-12" id="div_review">
-        <p id="detail-text1">리뷰 <a href="${ path }/film/review_list?fcode=${ fcode }&ftype=${ ftype }" id="more-text1" style="margin-left: 90%;">더보기</a></p>
+        <p id="detail-text1">리뷰 <a href="${ path }/film/review_list?fcode=${ fcode }&ftype=${ ftype }" id="detail-text1" style="margin-left: 95%;">...</a></p>
         <hr>
         <!-- div -->
         <div class="container">
             <c:if test="${ empty list }">
-                <div style="text-align: center;">
-                    <br><br>
+                <div id="div_review" style="text-align: center; padding: 100px;">
                     작성된 리뷰가 없습니다.
-                    <br><br><br>
                 </div>
             </c:if>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4" id="card_review_row">
             
                 <c:if test="${ not empty list }">
-                    <!-- 기준으로 반복 -->
+                    <!-- repeat -->
                     <c:forEach var="review" begin="0" end="3" items="${ list }">
                         <div class="col">
                             <div class="card" id="card_review2">
@@ -123,12 +132,12 @@
     <br>
     <!-- 6th row -->
     <div class="col-4 col-sm-12" id="div_film">
-    <p id='detail-text1'>이 감독의 추천 작품</p>
+    <p id='detail-text1'>이런 작품을 추천해요</p>
         <hr>
-            <div class="carousel-inner">
-                <!-- 첫번째 슬라이드 -->
-                <div class="carousel-item active" id="carousel1"></div>
-            </div>
+        <div class="carousel-inner">
+            <!-- slide -->
+            <div class="carousel-item active" id="carousel1"></div>
+        </div>
     </div>
     <!-- 6th row end -->
 </div>
@@ -141,63 +150,70 @@
 	m_no = "${ m_no }";
 	contextpath = "${ pageContext.request.contextPath }";
 
-    $.ajax({
-        async: false,
-        type : 'POST',
-        url : contextpath + '/review/get_starrates',
-        data : {
-            'fCode' : fcode,
-            'ftype' : ftype
-        },
-        success : function (data) {
-        console.log(data);    
-            arr = [];
-            result1 = 0;
-            result2 = 0;
-            result3 = 0;
-            result4 = 0;
-            result5 = 0;
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].fstar == 1) {
-                    result1++;
+    function gra(){
+        $.ajax({
+            async: false,
+            type : 'POST',
+            url : contextpath + '/review/get_starrates',
+            data : {
+                'fCode' : fcode,
+                'ftype' : ftype
+            },
+            success : function (data) {
+            console.log(data);    
+                arr = [];
+                result1 = 0;
+                result2 = 0;
+                result3 = 0;
+                result4 = 0;
+                result5 = 0;
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].fstar == 1) {
+                        result1++;
+                    }
+                    if (data[i].fstar == 2) {
+                        result2++;
+                    }
+                    if (data[i].fstar == 3) {
+                        result3++;
+                    }
+                    if (data[i].fstar == 4) {
+                        result4++;
+                    }
+                    if (data[i].fstar == 5) {
+                        result5++;
+                    }
                 }
-                if (data[i].fstar == 2) {
-                    result2++;
-                }
-                if (data[i].fstar == 3) {
-                    result3++;
-                }
-                if (data[i].fstar == 4) {
-                    result4++;
-                }
-                if (data[i].fstar == 5) {
-                    result5++;
-                }
+            },
+            error: function (error) {
+                console.log('그래프 통신 에러');
             }
-        },
-        error: function (error) {
-            console.log('그래프 통신 에러');
-        }
-    });
+        });
+    }
 
-	var chart = c3.generate({
-        bindto: "#linechart",
-        data: {
-            json:{
-                num: [ 1, 2, 3, 4, 5 ],
-                '평가자수': [ result1, result2, result3, result4, result5 ],
-            },
-            x: 'num',
-            types:{
-                num: 'line',
-                평가자수: 'bar'
-            },
-            colors: {
-                num: '#7e69fe',
-                평가자수: '#7e69fe',
+    function draw(){
+        var chart = c3.generate({
+            bindto: "#linechart",
+            data: {
+                json:{
+                    num: [ 1, 2, 3, 4, 5 ],
+                    '평가자수': [ result1, result2, result3, result4, result5 ],
+                },
+                x: 'num',
+                types:{
+                    num: 'line',
+                    평가자수: 'bar'
+                },
+                colors: {
+                    num: '#7e69fe',
+                    평가자수: '#7e69fe',
+                }
             }
-        }
-    });
+        });
+    }
+
+    gra();
+    draw();
 
 	reviewModal = document.getElementById('reviewModal')
 

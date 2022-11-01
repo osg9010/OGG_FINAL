@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.ogg.member.model.vo.Member;
 import com.project.ogg.review.model.service.ReviewLikesService;
 import com.project.ogg.review.model.vo.Film;
+import com.project.ogg.review.model.vo.Review;
 import com.project.ogg.review.model.vo.ReviewLikes;
 
 @Controller
@@ -77,6 +78,19 @@ public class ReviewLikesController {
 		return map;
 	}
 	
+	@PostMapping("/get_reviewstar")
+	@ResponseBody
+	public Map<String, ReviewLikes> getReviewStar(@ModelAttribute Review review)  {
+		
+		Map<String, ReviewLikes> map = new HashMap<>(); 
+		map.put("rvstar", service.getStarByReview(review));
+		
+//		System.out.println("리뷰별점");
+//		System.out.println(map);
+		
+		return map;
+	}
+	
 	@PostMapping("/get_starrates")
 	@ResponseBody
 	public List<ReviewLikes> getStarRates(
@@ -89,7 +103,7 @@ public class ReviewLikesController {
 		fcode = Integer.parseInt(fCode);
 		list = service.getStarRates(fcode);
 		
-		System.out.println("레이츠 : " + list);
+//		System.out.println("레이츠 : " + list);
 		
 		return list;
 	}
@@ -105,7 +119,7 @@ public class ReviewLikesController {
 		if(member != null) {
 			
 			reviewLikes.setMNo(member.getM_no());
-			System.out.println(reviewLikes);
+//			System.out.println(reviewLikes);
 			map.put("likes", service.getLikes(reviewLikes));
 		}
 		
@@ -183,7 +197,7 @@ public class ReviewLikesController {
 			map.put("likeFilm", service.getLikes(reviewLikes));
 		}
 		
-		System.out.println(map);
+//		System.out.println(map);
 		
 		return map;
 	}
