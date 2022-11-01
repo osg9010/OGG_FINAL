@@ -13,7 +13,7 @@ public interface ReviewService {
 	
 	int filmInsert(Film film);
 
-	Review getReviewByNo(int no);
+	Review getReviewByNo(int no, Boolean hasRead);
 	
 	int getCmtCountByNo(int no);
 	

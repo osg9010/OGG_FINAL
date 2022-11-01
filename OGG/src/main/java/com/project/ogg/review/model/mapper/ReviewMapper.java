@@ -27,5 +27,7 @@ public interface ReviewMapper {
 	
 	int updateReview(Review review);
 
+	int updateReviewRdCnt(Review review);
+
 //	List<ReviewCmt> selectReCmtByReviewNo(List<ReviewCmt> reviewCmt);
 }

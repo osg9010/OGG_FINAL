@@ -32,7 +32,12 @@ public class ReviewLikesServiceImpl implements ReviewLikesService {
 	@Override
 	@Transactional
 	public int insertStar(ReviewLikes reviewLikes) {
-		return mapper.insertStar(reviewLikes);
+		// getlikes 해서 결과가 있으면 update로 ...
+		if(this.getStar(reviewLikes) == null) {
+			return mapper.insertStar(reviewLikes);
+		}else {
+			return mapper.updateStar(reviewLikes);
+		}
 	}
 
 	@Override
@@ -142,6 +147,11 @@ public class ReviewLikesServiceImpl implements ReviewLikesService {
 	@Override
 	public List<ReviewLikes> getStarRates(int fcode) {
 		return mapper.selectStarbyFilm(fcode);
+	}
+
+	@Override
+	public ReviewLikes getStarByReview(Review review) {
+		return mapper.selectStarByReview(review);
 	}
 
 

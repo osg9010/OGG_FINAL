@@ -29,8 +29,17 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 	
 	@Override
-	public Review getReviewByNo(int no) {
-		return mapper.selectReviewByNo(no);
+	public Review getReviewByNo(int no, Boolean hasRead) {
+		Review review = new Review();
+		int result = 0;
+	
+		review = mapper.selectReviewByNo(no);
+		
+		if(review != null && !hasRead) {
+			result = mapper.updateReviewRdCnt(review);
+		}
+		
+		return review;
 	}
 
 	@Override

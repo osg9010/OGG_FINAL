@@ -17,7 +17,8 @@ $(document).ready(function() {
 
             if(result.results.length >= 1){
 
-                let html = "<p class='row_name' style='margin-left: 5%;'>🎬 영화</p><hr></div>";
+                let html = "<p class='row_name' style='margin-left: 2%;'>🎬 영화</p></div>";
+                    html += "<div id='div_review0'>";
                     html += "<div id='search1' class='carousel slide' data-bs-ride='carousel'>";
                     html += "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-5' id='carousel01'>";
 
@@ -35,10 +36,11 @@ $(document).ready(function() {
                     html += "<img src='" + img + "' id='img_film'>";
                     html += "<div class='card-body'>";
                     html += "<div id='card-text1'>"+ title +"</div>";
-                    html += "<div id='card-text2'>"+ orig_title + " " + date +"</div>";
+                    html += "<div id='card-text2-1'>"+ orig_title + " " + date +"</div>";
                     html += "<div id='card-text3'> 평점 : "+ vote_average +"</div>";
                     html += "</div></div></a></div><br>";
                 })
+                html += "</div>";
                 $("#searchdiv1").append(html);
             }
         },
@@ -57,7 +59,8 @@ $(document).ready(function() {
             console.log(result);
             if(result.results.length >= 1){
 
-                let html  = "<p class='row_name' style='margin-left: 5%;'>📺 시리즈</p><hr></div>";
+                let html  = "<p class='row_name' style='margin-left: 2%;'>📺 시리즈</p></div>";
+                    html += "<div id='div_review3'>";
                     html += "<div id='search2' class='carousel slide' data-bs-ride='carousel'>";
                     html += "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-5' id='carousel01'>";
                 
@@ -75,15 +78,16 @@ $(document).ready(function() {
                     html += "<img src='" + img + "' id='img_film'>";
                     html += "<div class='card-body'>";
                     html += "<div id='card-text1'>"+ title +"</div>";
-                    html += "<div id='card-text2'>"+ orig_title + " " + date +"</div>";
+                    html += "<div id='card-text2-1'>"+ orig_title + " " + date +"</div>";
                     html += "<div id='card-text3'> 평점 : "+ vote_average +"</div>";
                     html += "</div></div></a></div><br>";
                 })
+                html += "</div>";
                 $("#searchdiv2").append(html);
             }
         },
         error: function (error) {
-            alert("검색어를 입력해주세요")
+            console.log('시리즈 에러');
         }
     });
     
@@ -97,7 +101,8 @@ $(document).ready(function() {
             console.log(result);
             if(result.results.length >= 1){
 
-                let html  = "<p class='row_name' style='margin-left: 5%;'>👤 인물</p><hr></div>";
+                let html  = "<p class='row_name' style='margin-left: 2%;'>👤 인물</p></div>";
+                    html += "<div id='div_review4'>";
                     html += "<div id='search3' class='carousel slide' data-bs-ride='carousel'>";
                     html += "<div class='row row-cols-1 row-cols-sm-2 row-cols-md-5' id='carousel02'>";
 
@@ -108,19 +113,20 @@ $(document).ready(function() {
 
                     html += "<div class='col' >";
                     html += "<a href='"+ contextpath +"/film/detail?fcode="+ id +"&ftype="+ type3 +"'>";
-                    html += "<div class='card' id='card_film3'>";
+                    html += "<div class='card' id='card_film4'>";
                     html += "<img src='" + img + "' id='img_film'>";
                     html += "<div class='card-body'>";
-                    html += "<div id='card-text1'>"+ name +"</div>";
-                    html += "<div id='card-text2'></div>";
+                    html += "<div id='card-text1' style='text-align:center;'>"+ name +"</div>";
+                    html += "<div id='card-text2-1'></div>";
                     html += "<div id='card-text3'></div>";
                     html += "</div></div></a></div><br>";
                 })
+                html += "</div>";
                 $("#searchdiv3").append(html);
             }
         },
         error: function (error) {
-            alert("검색어를 입력해주세요")
+            console.log('인물 에러');
         }
     });
 

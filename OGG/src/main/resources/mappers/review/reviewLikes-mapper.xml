@@ -40,6 +40,7 @@
 		<result property="rvReadCount" column="RV_READ_COUNT" />
 		<result property="rvCmtCount" column="RV_CMT_COUNT" />
 		<result property="rvNickname" column="M_NICKNAME" />
+		<result property="rvUpStatus" column="RV_UP_STATUS" />
 	</resultMap>
 	
 	<!-- REVIEW_CMT resultMap-->
@@ -142,33 +143,20 @@
 		            #{fCode},
 		            'movie',
 		            #{fStar},
-		            SYSDATE,
+		            CURRENT_DATE,
 		            'STAR'
 		      )
 	</insert>
 	
-	<!-- 좋아요 조회 -->
-<!-- 	<select id="selectLikes" parameterType="ReviewLikes" resultMap="reviewLikesResultMap">
-		<include refid="reviewLikesSql" />
-		<trim prefix="WHERE" suffixOverrides="AND">
-			M_NO = #{mNo} AND
-			<choose>
-			    <when test="lType == 'REVIEW'">
-					RV_NO = #{rvNo} AND 
-					L_TYPE = 'REVIEW'	
-				</when>
-			    <when test="lType == 'CMT'">
-					CMT_NO = #{cmtNo} AND 
-					L_TYPE = 'CMT'	
-			    </when>
-			    <when test="lType == 'FILM'">
+	<!-- 별점 수정 -->
+	<update id="updateStar" parameterType="ReviewLikes">
+			UPDATE  REVIEW_LIKES
+			SET 	F_STAR = #{fStar},
+				    L_DATE = CURRENT_DATE
+			WHERE 	M_NO = #{mNo} AND 
 					F_CODE = #{fCode} AND 
-					F_LIKES = 1 AND 
-					L_TYPE = 'FILM'	
-			    </when>
-		    </choose>
-		</trim>
-	</select>	 -->
+					L_TYPE = 'STAR'
+	</update>
 	
 	<!-- 리뷰 좋아요 조회 -->
 	<select id="selectReviewLikes" parameterType="ReviewLikes" resultMap="reviewLikesResultMap">
@@ -222,19 +210,19 @@
 					<choose>
 					    <when test="lType == 'REVIEW'">
 				            #{rvNo},
-				            SYSDATE,
+				            CURRENT_DATE,
 							'REVIEW'	
 						</when>
 					    <when test="lType == 'CMT'">
 				            #{cmtNo},
-				            SYSDATE,
+				            CURRENT_DATE,
 							'CMT'	
 					    </when>
 					    <when test="lType == 'FILM'">
 				            #{fCode},
 				            DEFAULT,
 				            1,
-				            SYSDATE,
+				            CURRENT_DATE,
 							'FILM'	
 					    </when>
 				    </choose>
@@ -276,8 +264,7 @@
 		SELECT	CMT_LIKES
 		FROM	REVIEW_CMT
 		WHERE	RV_NO = #{rvNo} AND
-				CMT_NO = #{cmtNo} AND
-				CMT_WRITER_NO = #{mNo}
+				CMT_NO = #{cmtNo}
 	</select>	
 	
 	<!-- 각 테이블에서 총 좋아요 수 업데이트 -->
@@ -303,8 +290,19 @@
 		  	<if test="lType == 'CMT'">
 				RV_NO = #{rvNo} AND
 				CMT_NO = #{cmtNo} AND
-				CMT_WRITER_NO = #{mNo}
-			</if>
+<!-- 				CMT_WRITER_NO = #{mNo}
+ -->			</if>
 	</update>
+		
+	<!-- 별점 조회 (리뷰) -->
+	<select id="selectStarByReview" parameterType="Review" resultMap="reviewLikesResultMap">
+		SELECT  L.F_STAR, L.L_DATE
+		FROM 	REVIEW R
+		JOIN 	REVIEW_LIKES L ON (L.M_NO = R.RV_WRITER_NO)
+		WHERE 	L.F_STAR > 0 AND 
+		     	L.F_CODE = #{fCode} AND 
+		     	R.RV_WRITER_NO = #{rvWriterNo} AND 
+		      	R.RV_NO = #{rvNo}
+	</select>
 	
 </mapper>

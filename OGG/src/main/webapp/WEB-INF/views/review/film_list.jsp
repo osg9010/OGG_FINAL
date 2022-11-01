@@ -16,20 +16,19 @@
 
 <!-- start -->
 <div class="container" style="margin-bottom: 100px;">
-    <div class="row" style="padding-top: 10px;">
-        <div class="col" style="margin-left: 5%;">
+    <div class="row" style="padding-top: 20px;">
+        <div class="col" style="margin-left: 2%;">
             <p class="row_name">🎬 인기 영화 </p>
         </div>
         <div class="col"></div>
         <div class="col">
-            <input type="text" class="form-control" id="searchInput" style="width:140px; margin-left: 35%; margin-top:5px; display: inline-block; border: 1px solid lightgray;">
-            <button class="btn btn-primary" type="button" style="display: inline; height: 36px; margin-bottom: 5px;"
-            		id="searchBtn">검색</button>
+            <input type="text" class="form-control" id="searchInput">
+            <button class="btn btn-primary" type="button" style="display: inline; height: 36px; margin-bottom: 5px;" id="searchBtn">검색</button>
         </div>
-        <hr>
     </div>
     
     <!-- 1st_film -->
+    <div id="div_review0">
     <div id="carouselExampleControls1" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <!-- slide_1 -->
@@ -46,14 +45,15 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+    </div>
     <!-- 1st_end -->
 
     <!-- 2nd_series -->
     <div style="margin-top: 40px; margin-bottom: 20px;">
-        <p class="row_name" style="margin-left: 5%;">📺 인기 시리즈</p>
-        <hr>
+        <p class="row_name" style="margin-left: 2%;">📺 인기 시리즈</p>
     </div>
 
+    <div id="div_review3">
     <div id="carouselExampleControls2" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <!-- slide_1 -->
@@ -70,14 +70,15 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+    </div>
     <!-- 2nd_end -->        
 
     <!-- 3rd_rates -->
     <div style="margin-top: 40px; margin-bottom: 20px;">
-        <p class="row_name" style="margin-left: 5%;">🏆 평점이 높은 작품</p>
-        <hr>
+        <p class="row_name" style="margin-left: 2%;">🏆 평점이 높은 작품</p>
     </div>
 
+    <div id="div_review4">
     <div id="carouselExampleControls3" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <!-- 첫번째 슬라이드 -->
@@ -94,15 +95,16 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+    </div>
     <!-- 3rd_end -->  
 
     <!-- 4th_likes -->
     <div id="mylikes">
         <div style="margin-top: 40px; margin-bottom: 20px;">
-            <p class="row_name" style="margin-left: 5%;">💖 내가 찜한 작품</p>
-            <hr>
+            <p class="row_name" style="margin-left: 2%;">💖 내가 찜한 작품</p>
         </div>
 
+    <div id="div_review5">
             <div id="carouselExampleControls0" class="carousel slide" data-bs-touch="false"">
                 <div class="carousel-inner">
                 <!-- 첫번째 슬라이드 -->
@@ -119,6 +121,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+    </div>
     </div>
     <!-- 4th_end -->
 

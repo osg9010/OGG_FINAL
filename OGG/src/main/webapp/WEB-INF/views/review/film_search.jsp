@@ -15,13 +15,13 @@
 <script defer src="${path}/js/review/film_search.js"></script>
 
 <!-- start -->
-<div class="container" style="margin-bottom: 100px; margin-top: 40px;">
+<div class="container" style="margin-bottom: 100px;">
 
-    <div class="row" style="maring-bottom: 20px;">
-        <div class="col" style="margin-left: 5%;"></div>
+    <div class="row" style="padding-top: 20px;">
+        <div class="col" style="margin-left: 2%;"></div>
         <div class="col"></div>
         <div class="col">
-            <input type="text" class="form-control" id="searchInput" style="width:140px; margin-left: 35%; margin-top:5px; display: inline-block; border: 1px solid lightgray;">
+            <input type="text" class="form-control" id="searchInput">
             <button class="btn btn-primary" type="button" style="display: inline; height: 36px; margin-bottom: 5px;"id="searchBtn">검색</button>
         </div>
     </div>

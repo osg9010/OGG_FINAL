@@ -36,4 +36,6 @@ public interface ReviewLikesService {
 
 	List<ReviewLikes> getStarRates(int fcode);
 
+	ReviewLikes getStarByReview(Review review);
+
 }

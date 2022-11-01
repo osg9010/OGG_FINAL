@@ -26,12 +26,14 @@
     <!-- 2nd row -->
 	<div id="fafa">
     <hr>
-    <div class="col-3 col-sm-12" id="div_review">
-        <p class="board-text1" style="margin-left: 10px;">리뷰</p>
+    <div class="col-3 col-sm-12" id="div_review0">
+        <p class="board-text1" style="margin-left: 10px; font-weight: 800; font-size: 1.4em; text-align: center; color: white;">리뷰</p>
 		<hr>
         <!-- start review_content -->
 		<c:if test="${ empty list }">
-			<br><center> 작성된 리뷰가 없습니다. </center><br><br>
+			<div id="div_review" style="text-align: center; padding: 100px;">
+				작성된 리뷰가 없습니다.
+			</div>
 		</c:if>
 		
 		<c:if test="${ not empty list }">
