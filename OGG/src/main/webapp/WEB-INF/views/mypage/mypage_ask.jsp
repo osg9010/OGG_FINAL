@@ -40,10 +40,10 @@
                         <div class="item">결제 수단 / 계좌 관리</div>
                     </a>
                     <a href="${ path }/mypage/point">
-                        <div class="item">포인트 관리</div>
+                        <div class="item">포인트 내역 확인</div>
                     </a>
                     <a href="${ path }/mypage/payment_history">
-                        <div class="item">정산 내역 확인</div>
+                        <div class="item">결제 내역 확인</div>
                     </a>
                     
                 </div>
@@ -75,7 +75,7 @@
                         <th scope="col">No</th>
                         <th scope="col">제목</th>
                         <th scope="col">작성 날짜</th>
-                        <th scope="col">조회수</th>
+                        <th scope="col">답변 여부</th>
                     </tr>
                 </thead>
 				<tbody class="partyitem">

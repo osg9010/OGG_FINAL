@@ -84,8 +84,8 @@
 					SEQ_CMT_NO.NEXTVAL,
 					#{rvNo},
 					#{cmtWriterNo},
-					SYSDATE,
-					SYSDATE,
+					CURRENT_DATE,
+					CURRENT_DATE,
 					#{cmtContent},
 					DEFAULT,
 					DEFAULT,
@@ -104,7 +104,7 @@
 	<update id="updateCmt" parameterType="ReviewCmt">
 		UPDATE  REVIEW_CMT
 		SET 
-				CMT_UPDATE = SYSDATE,
+				CMT_UPDATE = CURRENT_DATE,
 		<choose>
 		    <when test="cmtContent != null">
 			  	CMT_CONTENT = #{cmtContent}
@@ -120,7 +120,7 @@
 	<update id="updateReCmt" parameterType="ReviewCmt">
 		UPDATE  REVIEW_CMT
 		SET 
-				CMT_UPDATE = SYSDATE,
+				CMT_UPDATE = CURRENT_DATE,
 		<choose>
 		    <when test="cmtContent != null">
 			  	CMT_CONTENT = #{cmtContent}

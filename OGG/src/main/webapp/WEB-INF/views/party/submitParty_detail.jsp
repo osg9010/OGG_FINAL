@@ -63,20 +63,24 @@
 
                 <h3><span class="c_purple">파티 가입 규칙</span> 확인</h3>
                 <div class="form-round-box">
+                		<div style="display:none"><input type="checkbox" id="checkbox1" class="checkBoxes"></div>
                         <div class="ruleBox" style="margin-bottom: 20px;">
                             <p class="titleText" id="info_text"></p>
                         </div>
-
+                        
+                        <div style="display:none"><input type="checkbox" id="checkbox2" class="checkBoxes"></div>
                         <div class="ruleBox" style="margin-bottom: 20px;">
-                            <p class="titleText"><i class="bi bi-check-lg" style="color: #7e69fe;"></i> 파티 가입시 지불하는 파티 보증금 ${ party.p_deposit }원은 파티가 끝나면 100% 환급되며, 파티 중도 탈퇴 시 환급되지 않습니다.</p>
+                            <p class="titleText"><i class="bi bi-check-lg ch_imgs" id="ch_img2"></i> 파티 가입시 지불하는 파티 보증금 ${ party.p_deposit }원은 파티가 끝나면 100% 환급되며, 파티 중도 탈퇴 시 환급되지 않습니다.</p>
+                        </div>
+                        
+                        <div style="display:none"><input type="checkbox" id="checkbox3" class="checkBoxes"></div>
+                        <div class="ruleBox" style="margin-bottom: 20px;">
+                            <p class="titleText"><i class="bi bi-check-lg ch_imgs" id="ch_img3"></i> 다음 정산일(${ party.p_accounts }일) 부터는 OGG 수수료가 포함된 ${ party.p_entry_price_output }원의 파티 요금이 결제됩니다.</p>
                         </div>
 
-                        <div class="ruleBox" style="margin-bottom: 20px;">
-                            <p class="titleText"><i class="bi bi-check-lg" style="color: #7e69fe;"></i> 다음 정산일(${ party.p_accounts }일) 부터는 OGG 수수료가 포함된 ${ party.p_entry_price_output }원의 파티 요금이 결제됩니다.</p>
-                        </div>
-
+						<div style="display:none"><input type="checkbox" id="checkbox4" class="checkBoxes"></div>
                         <div class="ruleBox">
-                            <p class="titleText"><i class="bi bi-check-lg" style="color: #7e69fe;"></i> 파티 가입 조건 및 서비스 이용약관을 확인했으며, 이에 동의합니다.</p>
+                            <p class="titleText"><i class="bi bi-check-lg ch_imgs" id="ch_img4"></i> 파티 가입 조건 및 서비스 이용약관을 확인했으며, 이에 동의합니다.</p>
                         </div>
                 </div>
 
@@ -105,7 +109,7 @@
 
                 <div class="buttonBox">
                     <button type="button" class="button" onclick="goBack()">뒤로 가기</button>
-                    <button type="button" class="button button-purple" onclick="requestPay()">결제하고 파티 시작하기</button>
+                    <button type="button" class="button" id="submitBtn" onclick="requestPay()" disabled>결제하고 파티 시작하기</button>
                 </div>
 
             </form>
@@ -144,6 +148,17 @@
 	let monthly_price = ($('#monthly_price').val()).replace(/[^\d]+/g, "");
 	let point = Math.round(monthly_price * 0.9);
 	
+	
+    function allChecked(){
+    	if($("#checkbox1").prop("checked") && $("#checkbox2").prop("checked") && $("#checkbox3").prop("checked") && $("#checkbox4").prop("checked")){
+    		document.getElementById('submitBtn').disabled = false;
+    		$("#submitBtn").attr("class", "button button-purple");
+    	} else{
+    		document.getElementById('submitBtn').disabled = true;
+    		$("#submitBtn").attr("class", "button");
+    	}
+    };
+    
 	function goBack(){
 		window.history.back();
 	};
@@ -167,9 +182,62 @@
 	    
 	    price_sum = String(price_sum).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	    
-	    document.getElementById('info_text').innerHTML = "<i class='bi bi-check-lg' style='color: #7e69fe;''></i>" + price_sum + "원이 카카오 간편 결제를 통해 결제될 예정이며, 결제 진행에 동의합니다.";
+	    document.getElementById('info_text').innerHTML = "<i class='bi bi-check-lg ch_imgs' id='ch_img1'></i> " + price_sum + "원이 카카오 간편 결제를 통해 결제될 예정이며, 결제 진행에 동의합니다.";
 	    document.querySelector('#price_sum').value = price_sum + "원";
 	    document.querySelector('#price_kakao').value = price_sum + "원";
+	    
+	    // 체크박스 기능		
+    	$("#ch_img1").click(function(){
+    	    if($("#checkbox1").prop("checked")){
+    	        $("#checkbox1").prop("checked",false);
+    	        $("#ch_img1").css("color", "");
+    	        allChecked();
+    	    }
+    	    else{
+    	        $("#checkbox1").prop("checked",true);  
+    	        $("#ch_img1").css("color", "#7E69FE");
+    	        allChecked();
+    	    }
+    	});
+    	
+    	$("#ch_img2").click(function(){
+    	    if($("#checkbox2").prop("checked")){
+    	        $("#checkbox2").prop("checked",false);
+    	        $("#ch_img2").css("color", "");
+    	        allChecked();
+    	    }
+    	    else{
+    	        $("#checkbox2").prop("checked",true);  
+    	        $("#ch_img2").css("color", "#7E69FE");
+    	        allChecked();
+    	    }
+    	});
+    	
+    	$("#ch_img3").click(function(){
+    	    if($("#checkbox3").prop("checked")){
+    	        $("#checkbox3").prop("checked",false);
+    	        $("#ch_img3").css("color", "");
+    	        allChecked();
+    	    }
+    	    else{
+    	        $("#checkbox3").prop("checked",true);  
+    	        $("#ch_img3").css("color", "#7E69FE");
+    	        allChecked();
+    	    }
+    	});
+    	
+    	$("#ch_img4").click(function(){
+    	    if($("#checkbox4").prop("checked")){
+    	        $("#checkbox4").prop("checked",false);
+    	        $("#ch_img4").css("color", "");
+    	        allChecked();
+    	    }
+    	    else{
+    	        $("#checkbox4").prop("checked",true);  
+    	        $("#ch_img4").css("color", "#7E69FE");
+    	        allChecked();
+    	    }
+    	});
 
 	});
 		

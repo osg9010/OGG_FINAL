@@ -33,8 +33,11 @@ $(document).ready(function() {
 
             // poster
             let img = poster + result.poster_path;
+            let img2 = poster2 + result.poster_path;
             let html2 = "";
+                html2 += "<a href='" + img2 + "'>";
                 html2 += "<img src='" + img + "' id='img_film3'>";
+                html2 += "</a>";
 
             $("#filmDetail0").append(html2);
 
@@ -52,7 +55,9 @@ $(document).ready(function() {
                 genres[i] = result.genres[i].name;
             }
             let genre = genres.join(' ・ ');
-            
+            if(dirname == undefined){
+                dirname = '';
+            }
             let html3 = "";
                 html3 += "<a href='" + contextpath + "/film/detail?fcode=" + id + "&ftype=" + type1 + "'>";
                 html3 += "<div class='row' style='font-size: 2em; font-weight: 700; margin-top: 35px; margin-bottom: 1px; margin-left: 1px;'>";
@@ -60,15 +65,13 @@ $(document).ready(function() {
                 html3 += "</div>";
                 html3 += "</a>";
                 html3 += "<div class='row' style='font-size: 0.9em; color: grey; margin-bottom: 15px; margin-left: 7px;'>";
-                // html3 += orig_title + "<br> 장르 ・ " + genre + " " + "<br> 개봉 ・ " + date + " <br> 러닝타임 ・ " + runtime +"분 " 
-                html3 += orig_title + " ・ " + genre + " " + "<br> 개봉 ・ " + date + " <br> 러닝타임 ・ " + runtime +"분 " 
+                html3 += orig_title + " ・ " + dirname + "<br> 개봉 ・ " + date + "<br> 장르 ・ " + genre + " <br> 러닝타임 ・ " + runtime +"분 "
                 html3 += "</div>";
 
             $("#filmDetail1").append(html3);
 
             // logline
             let overview = result.overview;
-		    // let production_countries = result.production_countries[0].name;
 		    let belongs_to_collection = (result.belongs_to_collection == null ? " " : result.belongs_to_collection.name);
 		    let tagline = (result.tagline == null ? " " : result.tagline);
 		    
@@ -186,6 +189,16 @@ $(document).ready(function() {
 	        $('#textLengthCheck2').text("(2000 / 2000");
 	    }
 	});
+    
+    $("#rvCmt").keyup(function(e) {
+	    var content = $(this).val();
+	    $("#textLengthCheck3").text("(" + content.length + " / 200)");
+	    if (content.length > 200) {
+	        alert("최대 200자까지 입력 가능합니다.");
+	        $(this).val(content.substring(0, 200));
+	        $('#textLengthCheck3').text("(200 / 200");
+	    }
+	});
 
     ///////////////
     /////review////
@@ -208,14 +221,14 @@ $(document).ready(function() {
 				'fTitle' : title, 
 				'rvContent' : rvContent, 
 				'fCode' : fcode,
-				'ftype' : ftype
+				'fType' : ftype
 			},
 			success : (data) => {
 				alert('리뷰가 성공적으로 등록되었습니다');
-                location.replace(contextpath + '/film/review_list?fcode=' + fcode + '&ftype=' + ftype);
+                location.replace(contextpath + '/review/review_detail?no=' + data.rv.rvNo + '&fcode=' + fcode + '&ftype=' + ftype);
             },
 			error : (error) => {
-				alert('리뷰 등록에 실패하였습니다');
+                alert('리뷰 등록에 실패하였습니다');
 			}
 		});
         

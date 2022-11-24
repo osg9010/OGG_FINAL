@@ -23,4 +23,5 @@ public class Review {
 	private int rvReadCount;
 	private int rvCmtCount;
 	private String rvNickname;
+	private String rvUpStatus;
 }

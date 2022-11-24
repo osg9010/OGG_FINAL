@@ -10,8 +10,8 @@
 <div class="container" id="aback"></div>
 <div class="container" id="back">
     <div class="row"> 
-        <div class="col-sm-3" id="filmDetail0" style="height: 100%; width: 13em; padding-top:30px;"></div>
-        <div class="col-sm-9" style="margin-top: 5%; padding-top:30px;">
+        <div class="col-sm-3" id="filmDetail0" style="height: 100%; width: 13em; padding-top: 40px;"></div>
+        <div class="col-sm-9" style="margin-top: 5%; padding-top:20px;">
             <div id="filmDetail1"></div>
             <div class="row">
                 <div class="col-3 col-sm-3" style="margin-bottom: 30px;">
@@ -32,7 +32,7 @@
                     <c:if test="${ loginMember != null }">
 							<p id="likeFilm" onclick="likeFilm(event)"> 
 								<img src="${path}/images/review/plus.png" height="30px;" id="filmBefore">
-								&nbsp;보고싶어요
+								&nbsp;보고 싶어요
 							</p>
 							<p id="dislikeFilm" style="display: none;" onclick="dislikeFilm(event)"> 
 								<img src="${path}/images/review/checked.png" style ="height:30px;" id="filmAfter">
@@ -187,7 +187,8 @@ $(document).ready(function() {
 				'ftype' : ftype
 			},
 			success : (data) => {
-				alert('별점이 등록되었습니다');
+				gra();
+				draw();
 			},
 			error : (error) => {
 				alert('로그인 후 이용 가능합니다');
